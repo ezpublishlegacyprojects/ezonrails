@@ -1,0 +1,2 @@
+- use an md5 of the function name instead of a numeric id for policy limitations, to better survive alteration of controller class definitions
+- test usage of static methods in controllers

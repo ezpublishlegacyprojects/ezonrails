@@ -1,2 +1,6 @@
 - use an md5 of the function name instead of a numeric id for policy limitations, to better survive alteration of controller class definitions
 - test usage of static methods in controllers
+- add (optional) validation of parameters via introspection in controllerexecutor before calling the php method
+- add a way to simplify template name passed to the renderview method:
+  . defaults to controllers/class/method/$name.tpl
+  . should be overridable

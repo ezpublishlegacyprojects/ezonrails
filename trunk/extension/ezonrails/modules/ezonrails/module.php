@@ -1,12 +1,10 @@
 <?php
 /**
  *
- * @author G. Giunta
- * @license
  * @version $Id$
- * @copyright (C) 2010
- *
- * @todo add a caching layer to avoid all the introspection on every module view execution
+ * @license code licensed under the GNU General Public License v2.0
+ * @author G. Giunta
+ * @copyright (C) G. Giunta 2010
  */
 
 $cachefile = eZSys::cacheDirectory() . '/ezonrails/module.php';

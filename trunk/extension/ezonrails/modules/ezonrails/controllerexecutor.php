@@ -3,7 +3,9 @@
  * Script that executes all views in the ezonrails module
  *
  * @version $Id$
- * @copyright 2010
+ * @license code licensed under the GNU General Public License v2.0
+ * @author G. Giunta
+ * @copyright (C) G. Giunta 2010
  */
 
 $Result = array();

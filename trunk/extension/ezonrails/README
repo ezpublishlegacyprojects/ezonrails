@@ -51,6 +51,9 @@ Short tutorial:
 4. that method will be executed when the user browses to
    http://ez.server/etc/index.php/siteaccess/ezonrails/goofy/action1
 5. back to step 3
+6. NB: whenever you add a new method to a controller class, be sure to clean all
+   caches before trying to add a permission to execute it, as the list of
+   available controllers and actions is cached for speed
 
 You can also group your custom controller classes in your own extensions, such
 as: extension/myextension/controllers.

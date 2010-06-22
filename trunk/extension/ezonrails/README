@@ -67,3 +67,10 @@ you can have a look at the ggsysinfo extension, available on projects.ez.no
 Troubleshooting
 ===============
 For more documentation look under doc/
+
+
+Thanks
+===============
+Matteo Giordani, for the original concept and the stubborness to make me code a
+rubyish-lookalike (yuck!)
+http://www.3iomusic.com/

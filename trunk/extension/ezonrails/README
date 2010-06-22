@@ -43,7 +43,16 @@ Usage
 Take a look at extension/ezonrails/controllers/samplecontroller.php to get an idea
 of what a controller class can do.
 
-You can also group your own custom controller classes in your own extensions, such
+Short tutorial:
+1. create php class "goofy", with a method "index", drop it in the the controllers dir.
+2. that method will be executed when the user browses to
+   http://ez.server/etc/index.php/siteaccess/ezonrails/goofy
+3. now add a method "action1" to the "goofy" class
+4. that method will be executed when the user browses to
+   http://ez.server/etc/index.php/siteaccess/ezonrails/goofy/action1
+5. back to step 3
+
+You can also group your custom controller classes in your own extensions, such
 as: extension/myextension/controllers.
 In order for this to work, you simply need to add 'myextension' to the setting
 [GeneralSettings]ExtensionRepositories in configuration file ezonrails.ini

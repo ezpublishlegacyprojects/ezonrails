@@ -19,6 +19,30 @@ if ( count( $parameters ) > 0 )
     $action = array_shift( $parameters );
 }
 
+$access = false;
+$user = eZUser::currentUser();
+$accessResult = $user->hasAccessTo( 'ezonrails' , $controller );
+$accessWord = $accessResult['accessWord'];
+if ( $accessWord == 'yes' )
+{
+    $access = true;
+}
+else if ( $accessWord != 'no' ) // with limitation
+{
+    foreach ( $accessResult['policies'] as $key => $policy )
+    {
+        if ( isset( $policy['Action'] ) && in_array( $action, $policy['Action'] ) )
+        {
+            $access = true;
+        }
+    }
+}
+
+if ( !$access )
+{
+    return $module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel' );
+}
+
 if ( class_exists( $controller ) )
 {
     $controllerobj = new $controller();

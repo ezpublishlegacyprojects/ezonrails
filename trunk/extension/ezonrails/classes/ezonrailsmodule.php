@@ -66,13 +66,12 @@ class eZOnRailsModule{
 
                                 // for every public method of the class, we add a limitation on the access function
                                 $methods = array();
-                                $i = 1;
                                 foreach( get_class_methods( $classname ) as $methodname )
                                 {
                                     $func = new ReflectionMethod( $classname, $methodname );
                                     if( !$func->isPrivate() && !$func->isProtected() && !$func->isConstructor() && !$func->isDestructor() && !$func->isAbstract() )
                                     {
-                                        $methods[] = array( 'Name' => $methodname, 'value' => $i++ );
+                                        $methods[$methodname] = array( 'Name' => $methodname, 'value' => $methodname );
                                     }
                                 }
                                 self::$functionList[$classname] = array( 'Action' => array( 'name' => 'Action', 'values' => $methods ) );

@@ -45,6 +45,11 @@ class samplecontroller extends ezOnRailsController
             'pagelayout' => 'print_pagelayout.tpl'
         );
     }
+
+    static function action4()
+    {
+        return 'static functions are ok too';
+    }
 }
 
 ?>

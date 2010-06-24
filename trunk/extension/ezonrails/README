@@ -50,10 +50,18 @@ Short tutorial:
 3. now add a method "action1" to the "goofy" class
 4. that method will be executed when the user browses to
    http://ez.server/etc/index.php/siteaccess/ezonrails/goofy/action1
-5. back to step 3
-6. NB: whenever you add a new method to a controller class, be sure to clean all
+5. the parameters that get passed to the php method "action1" are the unordered
+   parameters used in the url:
+   http://ez.server/etc/index.php/siteaccess/ezonrails/goofy/action1/hello/world
+   will execute
+     $g = new goofy();
+     $g->action1( 'hello', 'world' );
+   At this time unorderend parameters are not supported
+6. back to step 3
+7. NB: whenever you add a new method to a controller class, be sure to clean all
    caches before trying to add a permission to execute it, as the list of
    available controllers and actions is cached for speed
+
 
 You can also group your custom controller classes in your own extensions, such
 as: extension/myextension/controllers.

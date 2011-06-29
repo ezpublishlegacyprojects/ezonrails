@@ -18,14 +18,16 @@ if ( !$developmentMode && $clusterfile->exists() )
 }
 else
 {
-    $Module = array( 'name' => 'eZ Rails' );
+    $Module = array( 'name' => 'eZOnRails' );
     $ViewList = eZOnRailsModule::viewList();
     $FunctionList = eZOnRailsModule::functionList();
+    $GLOBALS['eZOnRailsControllers'] = eZOnRailsModule::controllersExtraInfo();
 
     $cachecontents = "<?php
 \$Module = " . var_export( $Module, true ) . ";
 \$ViewList = " . var_export( $ViewList, true ) . ";
 \$FunctionList = " . var_export( $FunctionList, true ) . ";
+\$GLOBALS['eZOnRailsControllers'] = " . var_export( $GLOBALS['eZOnRailsControllers'], true ) . ";
 ?>";
      $clusterfile->fileStoreContents( $cachefile, $cachecontents );
 }

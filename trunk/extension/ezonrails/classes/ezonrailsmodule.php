@@ -11,10 +11,12 @@
 /**
  * Class that scans for existing controllers to inject their methods as views in the eZP module 'ezonrails'
  */
-class eZOnRailsModule{
+class eZOnRailsModule
+{
 
     private static $viewList = null;
     private static $functionList = null;
+    private static $controllersExtraInfo = null;
 
     public static function viewList()
     {
@@ -28,6 +30,12 @@ class eZOnRailsModule{
         return self::$functionList;
     }
 
+    public static function controllersExtraInfo()
+    {
+        self::initControllers();
+        return self::$controllersExtraInfo;
+    }
+
     /**
     * Scan all extensions that declare to contain controllers, to build list of
     * known controllers and actions.
@@ -39,19 +47,24 @@ class eZOnRailsModule{
         {
             self::$viewList = array();
             self::$functionList = array();
+            self::$controllersExtraInfo = array();
 
             $ini = eZINI::instance( 'ezonrails.ini' );
             $extdir = eZExtension::baseDirectory();
-            foreach( $ini->variable( 'GeneralSettings', 'ExtensionRepositories' ) as $ext )
+            foreach ( $ini->variable( 'GeneralSettings', 'ExtensionRepositories' ) as $ext )
             {
                 $controllerdir = $extdir . '/' . $ext . '/controllers';
                 if ( is_dir( $controllerdir ) )
                 {
-                    foreach( scandir( $controllerdir ) as $file )
+                    foreach ( scandir( $controllerdir ) as $file )
                     {
                         if ( substr( $file, -4 ) == '.php' )
                         {
                             $classname = substr( $file, 0, -4 );
+
+                            $controllerFilePath = $controllerdir . '/' . $file;
+                            require_once( $controllerFilePath );
+
                             if ( class_exists( $classname ) )
                             {
                                 // the view is named as the class
@@ -66,15 +79,24 @@ class eZOnRailsModule{
 
                                 // for every public method of the class, we add a limitation on the access function
                                 $methods = array();
-                                foreach( get_class_methods( $classname ) as $methodname )
+                                foreach ( get_class_methods( $classname ) as $methodname )
                                 {
                                     $func = new ReflectionMethod( $classname, $methodname );
-                                    if( !$func->isPrivate() && !$func->isProtected() && !$func->isConstructor() && !$func->isDestructor() && !$func->isAbstract() )
+                                    if (
+                                        !$func->isPrivate() &&
+                                        !$func->isProtected() &&
+                                        !$func->isConstructor() &&
+                                        !$func->isDestructor() &&
+                                        !$func->isAbstract()
+                                    )
                                     {
                                         $methods[$methodname] = array( 'Name' => $methodname, 'value' => $methodname );
                                     }
                                 }
+
                                 self::$functionList[$classname] = array( 'Action' => array( 'name' => 'Action', 'values' => $methods ) );
+
+                                self::$controllersExtraInfo[$classname] = array( 'path' => $controllerFilePath );
                             }
                         }
                     }
@@ -101,6 +123,10 @@ class eZOnRailsModule{
             self::$functionList = array(
                 'samplecontroller' => array(),
                 'controller2' => array(),
+            );
+            
+            self::$controllersExtraInfo = array(
+                'samplecontroller' => array( 'path' => 'extension/ezonrails/controllers/samplecontroller.php' ),
             );*/
         }
     }

@@ -31,7 +31,10 @@ class samplecontroller extends ezOnRailsController
         // If you want to use templates to render the output of your methods remember to:
         // 1. declare your extension as design extension
         // 2. create the templates you use
-        return $this->renderView( 'design:controllers/samplecontroller/action1.tpl', array( 'FirstParamReceived' => $p1 ) );
+        return $this->renderView(
+            'design:controllers/samplecontroller/action1.tpl',
+            array( 'FirstParamReceived' => $p1 )
+        );
     }
 
     /**
@@ -63,6 +66,58 @@ class samplecontroller extends ezOnRailsController
     {
         return 'static functions are ok too';
     }
+
+    /**
+     * An action using nodeId to fetch existing node, assign it to template and render its output
+     * nb: a php warning will NOT be generated when using default values for passed params even if they were omitted
+     */
+    function action5( $nodeId = null, $p1 = null )
+    {
+        return $this->renderNodeView(
+            $nodeId,
+            'design:controllers/samplecontroller/action5.tpl',
+            array( 'FirstParamReceived' => $p1 )
+        );
+    }
+
+    /**
+     * An action which assigns extra message parameter to template if it was passed from processing action.
+     * Otherwise just renders view template.
+     */
+    function action6()
+    {
+        if ( $this->actionParams !== null ) {
+            // Assign data from previous action
+            $message = $this->actionParams['message'];
+            
+            // Assign extra message to template if previous processing in action7 was unsuccessful
+            $tpl = templateInit();
+            $tpl->setVariable( 'message', $message );
+        }
+        
+        return $this->renderView( 'design:controllers/samplecontroller/action6.tpl' );
+    }
+
+    /**
+     * Processing action for action6.
+     * Does some processing based on received parameters, GET, POST etc.
+     * Calls action6 with specific parameter if was unsuccessful.
+     */
+    function action7( $message = null )
+    {
+        // Do some processing here
+        $processingError = ( $message !== null );
+        
+        if ( $processingError )
+        {
+            // If processing was unsuccessful
+            return $this->runAction( 'action6', array( 'message' => $message ) );
+        }
+
+        // If processing was successful
+        return $this->redirectTo( '/ezonrails/samplecontroller/index' );
+    }
+
 }
 
 ?>

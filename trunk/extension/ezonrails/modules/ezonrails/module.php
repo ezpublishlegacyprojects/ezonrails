@@ -7,9 +7,11 @@
  * @copyright (C) G. Giunta 2010
  */
 
+$siteIni = eZINI::instance();
+$developmentMode = ( $siteIni->variable( 'TemplateSettings', 'DevelopmentMode' ) == 'enabled' );
 $cachefile = eZSys::cacheDirectory() . '/ezonrails/module.php';
 $clusterfile = eZClusterFileHandler::instance( $cachefile );
-if ( $clusterfile->exists() )
+if ( !$developmentMode && $clusterfile->exists() )
 {
     $clusterfile->fetch();
     require_once( $cachefile );
@@ -27,6 +29,5 @@ else
 ?>";
      $clusterfile->fileStoreContents( $cachefile, $cachecontents );
 }
-
 
 ?>

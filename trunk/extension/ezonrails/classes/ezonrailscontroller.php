@@ -87,6 +87,12 @@ abstract class ezOnRailsController
     {
         $this->actionParams = $actionParams;
 
+        if ( !method_exists( $this, $action ) )
+        {
+            eZDebug::writeError( "Couldn't run action '{$action}' in ezonrails controller. It does not exist.", __CLASS__ );
+            return null;
+        }
+
         return $this->$action();
     }
 
@@ -101,7 +107,8 @@ abstract class ezOnRailsController
         global $module;
 
         $module->redirectTo( $uri );
-        return '';
+
+        return null;
     }
 
 }

@@ -23,13 +23,17 @@ else
     $FunctionList = eZOnRailsModule::functionList();
     $GLOBALS['eZOnRailsControllers'] = eZOnRailsModule::controllersExtraInfo();
 
-    $cachecontents = "<?php
+    if ( !$developmentMode )
+    {
+
+        $cachecontents = "<?php
 \$Module = " . var_export( $Module, true ) . ";
 \$ViewList = " . var_export( $ViewList, true ) . ";
 \$FunctionList = " . var_export( $FunctionList, true ) . ";
 \$GLOBALS['eZOnRailsControllers'] = " . var_export( $GLOBALS['eZOnRailsControllers'], true ) . ";
 ?>";
-     $clusterfile->fileStoreContents( $cachefile, $cachecontents );
+        $clusterfile->fileStoreContents( $cachefile, $cachecontents );
+    }
 }
 
 ?>

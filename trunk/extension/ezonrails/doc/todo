@@ -1,5 +1,10 @@
 - add (optional) validation of parameters via introspection in controllerexecutor before calling the php method
+
 - add (optional) support for named eZP view parameters instead of positional view parameters to be passed to the php method
+
 - add a way to simplify template name passed to the renderview method:
   . defaults to controllers/class/method/$name.tpl
   . should be overridable
+
+- allow user to auto register fetch functions too
+  + look up extension that allows to auto register template operators

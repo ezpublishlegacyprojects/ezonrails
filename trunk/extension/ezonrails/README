@@ -4,6 +4,9 @@ eZ On Rails extension for eZ publish
 An extension aiming to simplify the creation of new "modules and views" (in eZP
 terminology) or rather "controllers and views" (in standard mvc terminology).
 
+Now also supporting streamlined creation of "fetch functions".
+
+
 Basic principles:
 . convention over configuration: create php classes in a folder to add them to
   the system, minimal fussing with ini files
@@ -11,6 +14,9 @@ Basic principles:
   become a 'model'
 . rendering of results can be still be done from within php code or using a
   template (the 'view')
+. a php class can be used to hold fetch functions: all its static methods will
+  be exposed as such
+
 
 License
 =======
@@ -29,7 +35,8 @@ Installation
    - activate the extension either via the admin interface or by editing
      site.ini.append.php + regenerating autoloads
 
-2. Add your new php classes into extension/ezonrails/controllers
+2. Add your new php classes into extension/ezonrails/controllers and
+   extension/ezonrails/fetch_functions
 
 3. Assign access policies to grant execution permissions on the desired
    classes/methods to those user roles that will be accessing them:
@@ -44,12 +51,19 @@ Take a look at extension/ezonrails/controllers/samplecontroller.php to get an id
 of what a controller class can do.
 
 Short tutorial:
+
+Views
+-----
 1. create php class "goofy", with a method "index", drop it in the the controllers dir.
+
 2. that method will be executed when the user browses to
    http://ez.server/etc/index.php/siteaccess/ezonrails/goofy
+
 3. now add a method "action1" to the "goofy" class
+
 4. that method will be executed when the user browses to
    http://ez.server/etc/index.php/siteaccess/ezonrails/goofy/action1
+
 5. the parameters that get passed to the php method "action1" are the unordered
    parameters used in the url:
    http://ez.server/etc/index.php/siteaccess/ezonrails/goofy/action1/hello/world
@@ -57,20 +71,34 @@ Short tutorial:
      $g = new goofy();
      $g->action1( 'hello', 'world' );
    At this time unorderend parameters are not supported
+
 6. back to step 3
+
 7. NB: whenever you add a new method to a controller class, be sure to clean all
    caches before trying to add a permission to execute it, as the list of
    available controllers and actions is cached for speed
 
-
 You can also group your custom controller classes in your own extensions, such
-as: extension/myextension/controllers.
+as: extension/<myextension>/controllers.
 In order for this to work, you simply need to add 'myextension' to the setting
 [GeneralSettings]ExtensionRepositories in configuration file ezonrails.ini
 
+Fetch functions
+---------------
+1. in extension/<myextension>/fetch_functions/<myclass.php>, declare class myClass
+
+2. all static methods in that class will be available as fetch functions:
+      fetch ( 'ezonrails', 'myClass::staticMethod1', hash( ... ) )
+
+   Php reflection is used to define the list of parameters available, taking into
+   account their default value and type (if they have a default value only)
+
+3. NB: whenever you add a new method to a fetch_function class, be sure to clean all
+   caches before trying to to execute it, as the list of available methods is cached for speed
 
 To help you in listing modules and views available in a live eZ Publish installation,
 you can have a look at the ggsysinfo extension, available on projects.ez.no
+
 
 Troubleshooting
 ===============

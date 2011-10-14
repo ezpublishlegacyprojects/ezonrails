@@ -1,10 +1,16 @@
-- add (optional) validation of parameters via introspection in controllerexecutor before calling the php method
+. views:
+  - add (optional) validation of parameters via introspection in controllerexecutor before calling the php method
+  - add (optional) support for named eZP view parameters instead of positional view parameters to be passed to the php method
+  - add a way to simplify template name passed to the renderview method:
+    + defaults to controllers/class/method/$name.tpl
+    + should be overridable
+  - add override support to ezOnRailsController::renderNodeView
+  - allow to register single methods (regexp on method name ?)
+  - allow to register classes defined in a different path than extension/<extname>/controllers
 
-- add (optional) support for named eZP view parameters instead of positional view parameters to be passed to the php method
+. fetch functions
+  - allow to register single methods (regexp on method name ?)
+  - allow to register classes defined in a different path than extension/<extname>/fetch_functions
 
-- add a way to simplify template name passed to the renderview method:
-  . defaults to controllers/class/method/$name.tpl
-  . should be overridable
-
-- allow user to auto register fetch functions too
-  + look up extension that allows to auto register template operators
+. other
+  - serach for any existing projects.ez.no extension that allows to auto register template operators

@@ -1,4 +1,15 @@
-Changes from 0.1 to 0.2 - released 2011/7/xx
+Changes from 0.1 to 0.2 - released 2011/10/15
 
-. the cache of modules/views/perms functions is now disabled when TemplateSettings/DevelopmentMode is enabled
+. the cache of modules/views/perms declarations is now disabled when TemplateSettings/DevelopmentMode is enabled
 
+. a couple of new helper methods have been added to the class ezOnRailsController
+
+. NEW!!! fetch functions can now be automatically declared for existing php class methods.
+
+  1: in extension/<yourextension>/fetch_functions/<yourclass.php>, declare class yourClass
+
+  2: all static methods in that class will be available as fetch functions:
+     fetch ( 'ezonrails', 'yourClass::staticMethod', hash( ) )
+
+     Php reflection is used to define the list of parameters available, and
+     the results cached for best performances.

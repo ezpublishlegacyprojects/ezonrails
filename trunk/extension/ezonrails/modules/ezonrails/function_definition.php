@@ -9,7 +9,6 @@
 
 $siteIni = eZINI::instance();
 $developmentMode = ( $siteIni->variable( 'TemplateSettings', 'DevelopmentMode' ) == 'enabled' );
-$developmentMode = false;
 $cachefile = eZSys::cacheDirectory() . '/ezonrails/function_definition.php';
 $clusterfile = eZClusterFileHandler::instance( $cachefile );
 if ( !$developmentMode && $clusterfile->exists() )

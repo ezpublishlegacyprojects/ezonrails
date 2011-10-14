@@ -35,11 +35,14 @@ abstract class ezOnRailsController
      * Fetches content node specified by its id or uses passed one.
      * Assigns fetched node to template.
      * Renders the controller output using a template ('view' in rails terms).
-     * Fills correct result array.
+     * Fills correct result array (ie similar to content(view view).
      *
      * @param mixed $nodeOrNodeId Content node or its id
      * @param string $template
      * @param array $templateparams The params to be set to the template as hash: name => value
+     * @return array NB: unlike renderView which returns the rendered tpl as string
+     *
+     * @todo set default tpl to node/view/full and add designkeys for override support
      */
     protected function renderNodeView( $nodeOrNodeId, $template, $templateparams = array() )
     {
@@ -66,13 +69,13 @@ abstract class ezOnRailsController
 
         $tpl = templateInit();
         $tpl->setVariable( 'node', $node );
-              
+
         return array(
             'content' => $this->renderView( $template, $templateparams ),
             'content_info' => array( 'node_id' => $nodeId ),
             'node_id' => $nodeId,
             'path' => $nodePath,
-        ); 
+        );
     }
 
     /**

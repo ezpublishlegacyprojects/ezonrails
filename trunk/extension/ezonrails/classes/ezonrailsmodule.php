@@ -16,7 +16,6 @@ class eZOnRailsModule
 
     private static $viewList = null;
     private static $functionList = null;
-    private static $controllersExtraInfo = null;
 
     public static function viewList()
     {

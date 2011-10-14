@@ -40,7 +40,7 @@ class samplecontroller extends ezOnRailsController
     /**
     * An action that takes more control of the results, in this case the path
     * (see ezpedia page on 'module' for a list of valid members for return array).
-	* It also uses func_get_args to make the list of parameters/arguments even more dynamic
+    * It also uses func_get_args to make the list of parameters/arguments even more dynamic
     */
     function action2()
     {
@@ -89,12 +89,12 @@ class samplecontroller extends ezOnRailsController
         if ( $this->actionParams !== null ) {
             // Assign data from previous action
             $message = $this->actionParams['message'];
-            
+
             // Assign extra message to template if previous processing in action7 was unsuccessful
             $tpl = templateInit();
             $tpl->setVariable( 'message', $message );
         }
-        
+
         return $this->renderView( 'design:controllers/samplecontroller/action6.tpl' );
     }
 
@@ -107,7 +107,7 @@ class samplecontroller extends ezOnRailsController
     {
         // Do some processing here
         $processingError = ( $message !== null );
-        
+
         if ( $processingError )
         {
             // If processing was unsuccessful

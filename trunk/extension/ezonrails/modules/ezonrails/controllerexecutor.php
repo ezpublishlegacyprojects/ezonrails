@@ -43,9 +43,6 @@ if ( !$access )
     return $module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel' );
 }
 
-$controllerFilePath = $GLOBALS['eZOnRailsControllers'][$controller]['path'];
-require_once( $controllerFilePath );
-
 if ( class_exists( $controller ) )
 {
     $controllerobj = new $controller();

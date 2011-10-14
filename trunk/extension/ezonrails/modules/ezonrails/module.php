@@ -21,7 +21,6 @@ else
     $Module = array( 'name' => 'eZOnRails' );
     $ViewList = eZOnRailsModule::viewList();
     $FunctionList = eZOnRailsModule::functionList();
-    $GLOBALS['eZOnRailsControllers'] = eZOnRailsModule::controllersExtraInfo();
 
     if ( !$developmentMode )
     {
@@ -30,7 +29,6 @@ else
 \$Module = " . var_export( $Module, true ) . ";
 \$ViewList = " . var_export( $ViewList, true ) . ";
 \$FunctionList = " . var_export( $FunctionList, true ) . ";
-\$GLOBALS['eZOnRailsControllers'] = " . var_export( $GLOBALS['eZOnRailsControllers'], true ) . ";
 ?>";
         $clusterfile->fileStoreContents( $cachefile, $cachecontents );
     }

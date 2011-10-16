@@ -50,7 +50,7 @@ class eZOnRailsModule
                 {
                     foreach ( scandir( $controllerdir ) as $file )
                     {
-                        if ( substr( $file, -4 ) == '.php' )
+                        if ( ( substr( $file, -4 ) == '.php' ) && ( substr( $file, 0, 1 ) != '.' ) )
                         {
                             $classname = substr( $file, 0, -4 );
                             if ( class_exists( $classname ) )
